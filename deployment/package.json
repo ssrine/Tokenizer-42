@@ -1,0 +1,47 @@
+{
+  "name": "tokenizer42",
+  "version": "1.0.0",
+  "description": "Professional ERC20 token implementation for the 42 Tokenizer project",
+  "main": "hardhat.config.js",
+  "scripts": {
+    "test": "hardhat test --network hardhat",
+    "test:coverage": "hardhat coverage",
+    "deploy": "hardhat run deploy.js --network hardhat",
+    "deploy:localhost": "hardhat run deploy.js --network localhost",
+    "deploy:sepolia": "hardhat run deploy.js --network sepolia",
+    "deploy:bsc-testnet": "hardhat run deploy.js --network bscTestnet",
+    "node": "hardhat node",
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "console": "hardhat console --network hardhat",
+    "gas-report": "cross-env REPORT_GAS=true hardhat test --network hardhat"
+  },
+  "keywords": [
+    "ethereum",
+    "solidity",
+    "erc20",
+    "token",
+    "hardhat",
+    "openzeppelin",
+    "blockchain",
+    "smart-contract",
+    "42school"
+  ],
+  "author": "42 Student",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "chai": "^4.3.7",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "hardhat": "^2.17.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.0"
+  }
+}
