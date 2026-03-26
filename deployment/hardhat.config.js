@@ -26,7 +26,7 @@ require("dotenv").config();
 
 module.exports = {
     solidity: {
-        version: "0.8.19",
+        version: "0.8.20",
         settings: {
             optimizer: {
                 enabled: true,
@@ -98,12 +98,13 @@ module.exports = {
         exclude: ["node_modules/", "test/"],
     },
 
-    // Paths for contract locations
+    // Paths - contracts/tests copied from ../code/ by copy-contracts.js
     paths: {
-        sources: "../code/contracts",
-        tests: "../code/test",
+        sources: "./contracts",
+        tests: "./test",
         cache: "./cache",
         artifacts: "./artifacts",
+        deployments: "./deployments",
     },
 
     // Mocha testing framework settings

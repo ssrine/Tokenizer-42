@@ -4,17 +4,14 @@
   "description": "Professional ERC20 token implementation for the 42 Tokenizer project",
   "main": "hardhat.config.js",
   "scripts": {
-    "test": "hardhat test --network hardhat",
-    "test:coverage": "hardhat coverage",
-    "deploy": "hardhat run deploy.js --network hardhat",
-    "deploy:localhost": "hardhat run deploy.js --network localhost",
-    "deploy:sepolia": "hardhat run deploy.js --network sepolia",
-    "deploy:bsc-testnet": "hardhat run deploy.js --network bscTestnet",
-    "node": "hardhat node",
-    "compile": "hardhat compile",
+    "copy": "node copy-contracts.js",
+    "test": "npm run copy && cross-env NODE_PATH=./node_modules hardhat test --network hardhat",
+    "test:coverage": "npm run copy && cross-env NODE_PATH=./node_modules hardhat coverage",
+    "deploy": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run deploy.js --network hardhat",
+    "interact": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run interact.js --network hardhat",
+    "compile": "npm run copy && cross-env NODE_PATH=./node_modules hardhat compile",
     "clean": "hardhat clean",
-    "console": "hardhat console --network hardhat",
-    "gas-report": "cross-env REPORT_GAS=true hardhat test --network hardhat"
+    "console": "npm run copy && cross-env NODE_PATH=./node_modules hardhat console --network hardhat"
   },
   "keywords": [
     "ethereum",
