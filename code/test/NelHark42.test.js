@@ -15,7 +15,7 @@ describe("NelHark42", function () {
   it("should deploy with correct name and supply", async () => {
     expect(await token.name()).to.equal("NelHark42");
 
-    const supply = ethers.parseEther("1000000");
+    const supply = ethers.parseEther("1000");
     expect(await token.totalSupply()).to.equal(supply);
   });
 
@@ -32,7 +32,7 @@ describe("NelHark42", function () {
     await token.burn(ethers.parseEther("50"));
 
     const supply = await token.totalSupply();
-    expect(supply).to.equal(ethers.parseEther("999950"));
+    expect(supply).to.equal(ethers.parseEther("950"));
   });
 
   // 4️⃣ Owner mint

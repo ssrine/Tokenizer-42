@@ -2,165 +2,171 @@
 
 ## Overview
 
-The `interact.js` script demonstrates the core functionality of the NelHark42 token by executing real contract operations in sequence. It shows how to deploy, transfer, and burn tokens using ethers.js.
+Demonstrates core token functionality: deploy, transfer, and burn operations using ethers.js.
 
-## Running the Demo
+## Run Demo
 
 ```bash
 npm run interact
 ```
 
-This command:
-1. Copies contract files
-2. Compiles the contract
-3. Runs the demo script
-4. Displays step-by-step output
+## Demo Output
 
-## Demo Flow
+Complete terminal output when running `npm run interact`:
+
+```
+➜  deployment git:(main) ✗ npm run interact
+
+> tokenizer42@1.0.0 interact
+> npm run copy && cross-env NODE_PATH=./node_modules hardhat run interact.js --network hardhat
+
+> tokenizer42@1.0.0 copy
+> node copy-contracts.js
+
+📋 Setting up contracts and tests...
+
+📂 Contracts:
+   ✓ NelHark42.sol
+   Copied 1 file(s)
+
+📂 Tests:
+   ✓ NelHark42.test.js
+   Copied 1 file(s)
+
+✅ Setup complete! Files ready for Hardhat.
+
+================== NelHark42 Token Demo ==================
+
+Step 1: Deploy Contract
+------------------------
+  Contract deployed at: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+  Owner address:        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+
+Step 2: Token Information
+------------------------
+  Token name:     NelHark42
+  Symbol:         NH42
+  Decimals:       18
+  Total Supply:   1000.0 NH42
+
+Step 3: Initial Balance
+------------------------
+  Owner balance:  1000.0 NH42
+
+Step 4: Transfer Tokens
+------------------------
+  From:           0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  To:             0x0000000000000000000000000000000000000001
+  Amount:         100.0 NH42
+  Owner balance after:     900.0 NH42
+  Recipient balance:       100.0 NH42
+
+Step 5: Burn Tokens
+------------------------
+  Burn amount:    50.0 NH42
+  Before burn:
+    Total supply:  1000.0 NH42
+    Owner balance: 900.0 NH42
+  After burn:
+    Total supply:  950.0 NH42
+    Owner balance: 850.0 NH42
+
+================== Final Summary ==================
+
+  Token Name:         NelHark42
+  Token Symbol:       NH42
+  Total Supply:       950.0 NH42
+  Owner Balance:      850.0 NH42
+  Recipient Balance:  100.0 NH42
+
+================================================
+
+➜  deployment git:(main) ✗
+```
+
+## Operations Demonstrated
+
+### Setup
+- Copy script verifies contracts and tests are ready
+- Files prepared for Hardhat execution
 
 ### Step 1: Deploy Contract
-```javascript
-const token = await NelHark42.deploy();
-await token.waitForDeployment();
-```
+- Deploys fresh NelHark42 contract instance
+- Contract address: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
+- Owner address: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
+- Initial supply: 1,000 NH42 minted to owner
 
-Deploys a fresh instance of the NelHark42 token and waits for confirmation.
+### Step 2: Token Information
+- Displays contract metadata:
+  - Name: NelHark42
+  - Symbol: NH42
+  - Decimals: 18
+  - Total Supply: 1,000 NH42
 
-**Output:**
-```
-Step 1: Deploy contract
-  ✓ Deployed at: 0x5FbDB2315678...
-```
+### Step 3: Initial Balance
+- Queries owner's balance before any operations
+- Shows: 1,000.0 NH42
 
-### Step 2: Check Initial Balance
-```javascript
-const balance = await token.balanceOf(owner.address);
-```
+### Step 4: Transfer Tokens
+- Owner transfers 100 NH42 to recipient
+- Recipient: `0x0000000000000000000000000000000000000001`
+- Owner balance after: 900.0 NH42
+- Recipient balance: 100.0 NH42
 
-Retrieves the deployer's balance (should be 1,000,000 tokens).
+### Step 5: Burn Tokens
+**Before Burn:**
+- Total supply: 1,000.0 NH42
+- Owner balance: 900.0 NH42
 
-**Output:**
-```
-Step 2: Check initial balance
-  ✓ Owner has: 1000000.0 NH42
-```
+**Burn Action:**
+- Owner burns 50.0 NH42
 
-### Step 3: Transfer Tokens
-```javascript
-await token.transfer(
-  "0x0000000000000000000000000000000000000001",
-  ethers.parseEther("100")
-);
-```
+**After Burn:**
+- Total supply: 950.0 NH42
+- Owner balance: 850.0 NH42
 
-Transfers 100 tokens to address 0x0000...0001. The balance decreases by 100.
+### Final Summary
+- Token Name: NelHark42
+- Token Symbol: NH42
+- Total Supply: 950.0 NH42 (reduced from burn)
+- Owner Balance: 850.0 NH42
+- Recipient Balance: 100.0 NH42 (from transfer)
 
-**Output:**
-```
-Step 3: Transfer 100 tokens
-  ✓ Transferred: 100 NH42
-  ✓ Owner balance: 999900.0 NH42
-```
+## Key Concepts
 
-### Step 4: Burn Tokens
-```javascript
-await token.burn(ethers.parseEther("50"));
-```
+**ethers.js Functions Used:**
+- `parseEther()` - Convert decimals to wei (100 → 100*10^18)
+- `formatEther()` - Convert wei to decimals (1000*10^18 → 1000.0)
+- `getContractFactory()` - Get contract interface
+- `deploy()` - Deploy new instance
+- `transfer()` - Send tokens
+- `burn()` - Destroy tokens
+- `balanceOf()` - Get balance
 
-Burns 50 tokens from the owner's balance, reducing total supply.
+## Customizing Demo
 
-**Output:**
-```
-Step 4: Burn 50 tokens
-  ✓ Burned: 50 NH42
-  ✓ Owner balance: 999850.0 NH42
-```
-
-### Step 5: Display Summary
-```javascript
-const supply = await token.totalSupply();
-```
-
-Shows final balances and total supply.
-
-**Output:**
-```
-Summary:
-  • Total Supply: 999850.0 NH42
-  • Owner Balance: 999850.0 NH42
-```
-
-## Key Operations
-
-### Transfer
-- Sender: owner
-- Recipient: 0x0000000000000000000000000000000000000001
-- Amount: 100 tokens
-
-### Burn
-- Token holder: owner
-- Amount: 50 tokens
-- Effect: Reduces total supply and holder's balance
-
-## Technical Details
-
-### ethers.js Functions Used
-
-**parseEther(value)**
-- Converts decimal string to wei (smallest unit)
-- "100" → "100000000000000000000" (100 * 10^18)
-
-**formatEther(value)**
-- Converts wei to decimal string
-- "999850000000000000000000" → "999850.0"
-
-**Contract Calls**
-- `token.deploy()` - Deploys new contract
-- `token.transfer()` - Transfers tokens
-- `token.burn()` - Burns tokens
-- `token.balanceOf()` - Gets balance
-- `token.totalSupply()` - Gets total supply
+Edit `deployment/interact.js` to modify:
+- Transfer amount
+- Burn amount
+- Additional operations
+- Different recipients
 
 ## Error Handling
 
-The demo includes error catching:
+Script includes error catching:
 ```javascript
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error('Error:', error.message);
-        process.exit(1);
-    });
+main().catch((error) => {
+  console.error('Error:', error.message);
+  process.exit(1);
+});
 ```
 
-If any step fails, the error message is displayed and program exits.
+Any error stops script and displays message.
 
-## Customizing the Demo
+## Use Cases
 
-To modify the demo (e.g., change transfer amount):
+- Test contract after deployment
+- Verify all functions work
+- Learn ethers.js patterns
+- Demo for stakeholders
 
-Edit `deployment/interact.js`:
-```javascript
-// Change this line
-await token.transfer(recipient, ethers.parseEther("100"));
-
-// To transfer different amount
-await token.transfer(recipient, ethers.parseEther("250"));
-```
-
-## Network Configuration
-
-By default, the demo uses the **hardhat** network (local, ephemeral). To use a different network:
-
-```bash
-npx hardhat run deployment/interact.js --network localhost
-```
-
-## Learning Outcomes
-
-After running this demo, you'll understand:
-- How to deploy contracts programmatically
-- How to read contract state (balances, supply)
-- How to execute state-changing operations (transfer, burn)
-- How ethers.js communicates with smart contracts
-- How to handle async/await in blockchain operations

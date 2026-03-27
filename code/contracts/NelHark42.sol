@@ -16,7 +16,7 @@ contract NelHark42 is ERC20, ERC20Burnable, Ownable {
 
     constructor() ERC20("NelHark42", "NH42") Ownable(msg.sender) {
         // Mint initial supply to owner
-        _mint(msg.sender, 1_000_000 * 10 ** decimals());
+        _mint(msg.sender, 1000 * 10 ** decimals());
     }
 
     /**
