@@ -4,77 +4,52 @@ require("hardhat-gas-reporter");
 require("solidity-coverage");
 require("dotenv").config();
 
-/**
- * Hardhat Configuration File
- * 
- * This configuration file sets up the Hardhat development environment for the NelHark42 token.
- * It includes:
- * - Solidity compiler settings (version ^0.8.19)
- * - Network configurations (hardhat, localhost, testnets)
- * - Gas reporting settings
- * - Code coverage settings
- * 
- * The configuration supports:
- * 1. Local testing with Hardhat's built-in network
- * 2. Local node for manual testing
- * 3. Testnet deployments (Sepolia, BSC Testnet)
- * 4. Production networks
- * 
- * Note: This configuration does NOT require real private keys for local development.
- * Private keys are only needed for testnet/mainnet deployments.
- */
-
+// Hardhat configuration for NelHark42 ERC20 token
 module.exports = {
+    // Solidity compiler settings
     solidity: {
         version: "0.8.20",
         settings: {
-            optimizer: {
-                enabled: true,
-                runs: 200,
-            },
+            optimizer: { enabled: true, runs: 200 }, // Optimize for deployment size
         },
     },
 
     networks: {
-        // Hardhat built-in local network (fastest for testing)
+        // Local testing (fastest, no funds needed)
         hardhat: {
             chainId: 31337,
             initialBaseFeePerGas: 0,
             allowUnlimitedContractSize: false,
         },
 
-        // Local Hardhat node (must be run separately with: npx hardhat node)
+        // Local node: run 'npx hardhat node' separately
         localhost: {
             url: "http://127.0.0.1:8545",
             timeout: 60000,
         },
 
-        // Sepolia Testnet (Ethereum)
-        // Note: Requires testnet ETH from faucet
+        // Ethereum Sepolia testnet (requires testnet ETH)
         sepolia: {
             url: process.env.SEPOLIA_RPC_URL || "",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
             chainId: 11155111,
         },
 
-        // BSC Testnet (Binance Smart Chain)
-        // Note: Requires testnet BNB from faucet
+        // BSC testnet (requires testnet BNB)
         bscTestnet: {
             url: process.env.BSC_TESTNET_RPC_URL || "https://data-seed-prebsc-1-b.binance.org:8545",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
             chainId: 97,
         },
 
-        // Ethereum Mainnet (for production)
-        // ⚠️ NEVER use this for testing - requires real ETH
+        // Ethereum mainnet (production)
         mainnet: {
             url: process.env.MAINNET_RPC_URL || "",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
             chainId: 1,
         },
 
-        // BSC Mainnet (for production)
-        // ⚠️ NEVER use this for testing - requires real BNB
+        // BSC mainnet (production)
         bscMainnet: {
             url: process.env.BSC_MAINNET_RPC_URL || "",
             accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
@@ -82,7 +57,7 @@ module.exports = {
         },
     },
 
-    // Configuration for gas reporting (optional)
+    // Gas cost reporting (set REPORT_GAS=true in .env to enable)
     gasReporter: {
         enabled: process.env.REPORT_GAS === "true",
         currency: "USD",
@@ -91,14 +66,14 @@ module.exports = {
         noColors: true,
     },
 
-    // Configuration for code coverage (solidity-coverage)
+    // Code coverage analysis
     coverage: {
         provider: "hardhat",
         reports: ["text", "text-summary", "html"],
         exclude: ["node_modules/", "test/"],
     },
 
-    // Paths - contracts/tests copied from ../code/ by copy-contracts.js
+    // File paths (contracts copied from ../code/ by copy-contracts.js)
     paths: {
         sources: "./contracts",
         tests: "./test",
@@ -107,7 +82,7 @@ module.exports = {
         deployments: "./deployments",
     },
 
-    // Mocha testing framework settings
+    // Test runner settings
     mocha: {
         timeout: 40000,
     },

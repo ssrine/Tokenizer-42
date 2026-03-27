@@ -8,6 +8,8 @@
     "test": "npm run copy && cross-env NODE_PATH=./node_modules hardhat test --network hardhat",
     "test:coverage": "npm run copy && cross-env NODE_PATH=./node_modules hardhat coverage",
     "deploy": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run deploy.js --network hardhat",
+    "deploy:bsc": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run deploy.js --network bscTestnet",
+    "deploy:sepolia": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run deploy.js --network sepolia",
     "interact": "npm run copy && cross-env NODE_PATH=./node_modules hardhat run interact.js --network hardhat",
     "compile": "npm run copy && cross-env NODE_PATH=./node_modules hardhat compile",
     "clean": "hardhat clean",
