@@ -120,9 +120,6 @@ PRIVATE_KEY=0xYourMetaMaskPrivateKey
 SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YourInfuraKey
 RECIPIENT=0x0000000000000000000000000000000000000001
 ```
-
-**Get free test ETH:** https://sepoliafaucet.com
-
 **Get free test ETH:** https://sepoliafaucet.com
 
 ### Deploy & Run

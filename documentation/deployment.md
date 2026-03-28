@@ -45,9 +45,8 @@ RECIPIENT=0x0000000000000000000000000000000000000001
 
 ---
 
-## 🚀 Quick Start
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Step 1: Deploy (ONE TIME)
 ```bash
