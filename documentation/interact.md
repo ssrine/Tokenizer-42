@@ -1,153 +1,187 @@
-# Interactive Demo
+# Interactive Demo Guide
 
-## Overview
+Test NelHark42 token functionality on Ethereum Sepolia testnet.
 
-Demonstrates core token functionality: deploy, transfer, and burn operations using ethers.js.
+---
 
-## Run Demo
+## What This Demo Does
+
+| Step | Action | Cost |
+|------|--------|------|
+| 1 | Load contract info from deployment-info.json | Free |
+| 2 | Fetch token metadata (name, symbol, supply) | Free |
+| 3 | Transfer 100 NH42 tokens | ~100K gas |
+| 4 | Burn 50 NH42 tokens | ~50K gas |
+| Summary | Show updated balances | Free |
+
+**Total gas per run:** ~0.01-0.02 test ETH
+
+---
+
+## Prerequisites
+
+1. **Deploy first**
+   ```bash
+   npm run deploy
+   ```
+   (Creates `deployment-info.json`)
+
+2. **Have test ETH for gas fees**
+   - Get free: https://sepoliafaucet.com
+
+---
+
+## Quick Start
 
 ```bash
 npm run interact
 ```
 
-## Demo Output
+**Run as many times as you want** - uses same contract, creates new transactions.
 
-Complete terminal output when running `npm run interact`:
+---
+
+## Output Example
 
 ```
-➜  deployment git:(main) ✗ npm run interact
-
-> tokenizer42@1.0.0 interact
-> npm run copy && cross-env NODE_PATH=./node_modules hardhat run interact.js --network hardhat
-
-> tokenizer42@1.0.0 copy
-> node copy-contracts.js
-
-📋 Setting up contracts and tests...
-
-📂 Contracts:
-   ✓ NelHark42.sol
-   Copied 1 file(s)
-
-📂 Tests:
-   ✓ NelHark42.test.js
-   Copied 1 file(s)
-
-✅ Setup complete! Files ready for Hardhat.
-
 ================== NelHark42 Token Demo ==================
 
-Step 1: Deploy Contract
-------------------------
-  Contract deployed at: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-  Owner address:        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+Using deployed contract at: 0x8525F73547378e21F2356247b87D8aEcd9dAd213
 
-Step 2: Token Information
+Step 1: Token Information
 ------------------------
   Token name:     NelHark42
   Symbol:         NH42
   Decimals:       18
   Total Supply:   1000.0 NH42
 
-Step 3: Initial Balance
-------------------------
+Step 2: Initial Balance
   Owner balance:  1000.0 NH42
 
-Step 4: Transfer Tokens
-------------------------
-  From:           0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-  To:             0x0000000000000000000000000000000000000001
-  Amount:         100.0 NH42
-  Owner balance after:     900.0 NH42
-  Recipient balance:       100.0 NH42
-
-Step 5: Burn Tokens
-------------------------
+Step 3: Transfer Tokens
+  From:    0x09f963232EEF8b4a25752AeF491d695d287ff6F3
+  To:      0x0000000000000000000000000000000000000001
+  Amount:  100.0 NH42
+  TX:      https://sepolia.etherscan.io/tx/0x...
+  
+Step 4: Burn Tokens
   Burn amount:    50.0 NH42
-  Before burn:
-    Total supply:  1000.0 NH42
-    Owner balance: 900.0 NH42
-  After burn:
-    Total supply:  950.0 NH42
-    Owner balance: 850.0 NH42
+  Total supply:   950.0 NH42
+  TX:             https://sepolia.etherscan.io/tx/0x...
 
 ================== Final Summary ==================
 
-  Token Name:         NelHark42
-  Token Symbol:       NH42
-  Total Supply:       950.0 NH42
-  Owner Balance:      850.0 NH42
-  Recipient Balance:  100.0 NH42
+  Contract:        0x8525F73547378e21F2356247b87D8aEcd9dAd213
+  Total Supply:    950.0 NH42
+  Owner Balance:   850.0 NH42
+  Recipient:       100.0 NH42
 
 ================================================
-
-➜  deployment git:(main) ✗
 ```
 
-## Operations Demonstrated
+---
 
-### Setup
-- Copy script verifies contracts and tests are ready
-- Files prepared for Hardhat execution
+## How It Works
 
-### Step 1: Deploy Contract
-- Deploys fresh NelHark42 contract instance
-- Contract address: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
-- Owner address: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
-- Initial supply: 1,000 NH42 minted to owner
+**Step 1:** Load contract address from `deployment-info.json`
 
-### Step 2: Token Information
-- Displays contract metadata:
-  - Name: NelHark42
-  - Symbol: NH42
-  - Decimals: 18
-  - Total Supply: 1,000 NH42
+**Step 2:** Fetch token info (name, symbol, supply) from blockchain
 
-### Step 3: Initial Balance
-- Queries owner's balance before any operations
-- Shows: 1,000.0 NH42
+**Step 3:** Transfer 100 NH42 to recipient address
+- Costs gas (test ETH)
+- Creates transaction on Sepolia
+- Records on etherscan
 
-### Step 4: Transfer Tokens
-- Owner transfers 100 NH42 to recipient
-- Recipient: `0x0000000000000000000000000000000000000001`
-- Owner balance after: 900.0 NH42
-- Recipient balance: 100.0 NH42
+**Step 4:** Burn 50 NH42 tokens
+- Reduces total supply permanently
+- Costs gas
+- Creates transaction on Sepolia
 
-### Step 5: Burn Tokens
-**Before Burn:**
-- Total supply: 1,000.0 NH42
-- Owner balance: 900.0 NH42
+**Final:** Show all updated balances & transaction links
 
-**Burn Action:**
-- Owner burns 50.0 NH42
+---
 
-**After Burn:**
-- Total supply: 950.0 NH42
-- Owner balance: 850.0 NH42
+## Customize the Demo
 
-### Final Summary
-- Token Name: NelHark42
-- Token Symbol: NH42
-- Total Supply: 950.0 NH42 (reduced from burn)
-- Owner Balance: 850.0 NH42
-- Recipient Balance: 100.0 NH42 (from transfer)
+Edit `deployment/interact.js`:
 
-## Key Concepts
+```javascript
+// Transfer amount (line ~44)
+const transferAmount = ethers.parseEther("100");  // Change to 50, 200, etc.
 
-**ethers.js Functions Used:**
-- `parseEther()` - Convert decimals to wei (100 → 100*10^18)
-- `formatEther()` - Convert wei to decimals (1000*10^18 → 1000.0)
-- `getContractFactory()` - Get contract interface
-- `deploy()` - Deploy new instance
-- `transfer()` - Send tokens
-- `burn()` - Destroy tokens
-- `balanceOf()` - Get balance
+// Transfer recipient (line ~47)
+const recipient = process.env.RECIPIENT || owner.address;
 
-## Customizing Demo
+// Burn amount (line ~56)
+const burnAmount = ethers.parseEther("50");  // Change to 25, 100, etc.
+```
 
-Edit `deployment/interact.js` to modify:
-- Transfer amount
-- Burn amount
+Then run: `npm run interact`
+
+---
+
+## View Transactions
+
+All transactions are recorded on Sepolia Etherscan:
+
+**Contract Address:**
+https://sepolia.etherscan.io/address/0x8525F73547378e21F2356247b87D8aEcd9dAd213
+
+**Owner's Wallet:**
+https://sepolia.etherscan.io/address/0x09f963232EEF8b4a25752AeF491d695d287ff6F3
+
+View:
+- All transactions (transfers, burns)
+- Gas used
+- Block confirmations
+- Balances in real-time
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "deployment-info.json not found" | Run `npm run deploy` first |
+| "Insufficient gas" | Get test ETH: https://sepoliafaucet.com |
+| "Contract not found" | Verify contract address in deployment-info.json |
+| "Transaction pending" | Wait for confirmation (~15 seconds) |
+| **etherscan** | Transaction verification |
+
+---
+
+## Troubleshooting
+
+### "deployment-info.json not found"
+**Solution:** Run `npm run deploy` first to create it
+
+### "Insufficient funds for gas"
+**Solution:** Get free test ETH from faucet
+```
+https://sepoliafaucet.com
+```
+
+### "Network connection error"
+**Solution:** 
+- Check internet connection
+- Verify RPC endpoint in `.env`
+- Wait a moment and try again
+
+### Transaction takes long time
+**Solution:** Sepolia can be slow during high network traffic. This is normal. Wait 30-60 seconds for confirmation.
+
+---
+
+## Next Steps
+
+After running the demo:
+
+1. **View on etherscan:** Click the transaction links shown in output
+2. **Run again:** Execute `npm run interact` to create more transactions
+3. **Modify amounts:** Edit `interact.js` and customize transfer/burn amounts
+4. **Deploy new version:** Run `npm run deploy` to deploy a fresh contract
+
+---
 - Additional operations
 - Different recipients
 

@@ -1,0 +1,9 @@
+{
+  "contractAddress": "0x8525F73547378e21F2356247b87D8aEcd9dAd213",
+  "ownerAddress": "0x09f963232EEF8b4a25752AeF491d695d287ff6F3",
+  "totalSupply": "1000.0 NH42",
+  "chainId": 11155111,
+  "blockExplorerUrl": "https://sepolia.etherscan.io/address/0x8525F73547378e21F2356247b87D8aEcd9dAd213",
+  "deployedAt": "2026-03-27T22:06:01.861Z",
+  "network": "sepolia"
+}

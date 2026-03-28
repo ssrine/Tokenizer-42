@@ -3,8 +3,6 @@ const path = require('path');
 
 const contractsSrcDir = path.join(__dirname, '../code/contracts');
 const contractsDestDir = path.join(__dirname, './contracts');
-const testSrcDir = path.join(__dirname, '../code/test');
-const testDestDir = path.join(__dirname, './test');
 
 function copyDirectory(srcDir, destDir, label) {
   // Create destination if it doesn't exist
@@ -38,18 +36,14 @@ function copyDirectory(srcDir, destDir, label) {
 }
 
 // Main execution
-console.log('\n📋 Setting up contracts and tests...\n');
+console.log('\n📋 Setting up contracts...\n');
 
 try {
   console.log('📂 Contracts:');
   const contractCount = copyDirectory(contractsSrcDir, contractsDestDir, 'Contracts');
   console.log(`   Copied ${contractCount} file(s)\n`);
 
-  console.log('📂 Tests:');
-  const testCount = copyDirectory(testSrcDir, testDestDir, 'Tests');
-  console.log(`   Copied ${testCount} file(s)\n`);
-
-  console.log('✅ Setup complete! Files ready for Hardhat.\n');
+  console.log('✅ Setup complete! Contracts ready for Hardhat.\n');
   process.exit(0);
 } catch (error) {
   console.error('\n❌ Error during setup:');
